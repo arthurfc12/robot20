@@ -3,6 +3,10 @@
 Atenção: o grupo de 3 pessoas desta atividade deve se manter fixo até a entrega do projeto. Você **pode trocar** o grupo com que fez atividades anteriores. 
 
 
+**Data de entrega: 6/04**
+
+A entrega deverá ser via Blackboard com **código** e **comprovação em vídeo**. 
+
 
 No ROS a OpenCV trabalha com base em eventos. Esta atividade permite que você estude isso mais a fundo
 
