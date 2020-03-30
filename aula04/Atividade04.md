@@ -38,6 +38,11 @@ Atualize ou clone o `my_simulation`:
 
 ```
 
+Certifique-se de que o caminho dos modelos contidos no `my_simulation` esteja contido no `.bashrc` (olhe se contém a linha abaixo): 
+
+    export GAZEBO_MODEL_PATH=~/catkin_ws/src/my_simulation/models:${GAZEBO_MODEL_PATH}" >> ~/.bashrc
+
+
 Lembre-se de **sempre** executar o `catkin_make` depois de criar novos arquivos `*.py`
 
     cd ~/catkin_ws
