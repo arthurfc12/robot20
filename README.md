@@ -1,42 +1,36 @@
-# robot20
-# aula 24/03
+# Robótica Computacional
 
-Usando o simulador Gazebo e o robô Turtlebot3.
+[Atividade 1 - Imagens e modelos de cores](./aula01)
+[Atividade 2 - cores, contornos, dilatação e erosão e linhas e círculos](./aula02)
+[Atividade 3 - Ponto de fuga, MobileNet e Introdução ao ROS](./aula03)
+[Atividade 4 - Creepers coloridos](./aula04)
+[Atividade 5 - id tags](,.aula05)
 
-Antes de começar, precisamos atualizar nosso repositorio my_simulation, para isso abra um terminal Crtl+Alt+t e digite:
+# Guias
 
-    cd ~/catkin_ws/src/my_simulation
-    git pull  
+## ROS e robôs
 
-Execute o comando catkin_make na pasta raiz catkin_ws
-    
-    cd ~/catkin_ws
-    catkin_make
-Execute o comando catkin_make na pasta raiz catkin_ws
-    
-    cd ~/catkin_ws
-    catkin_make    
+[Como criar um projeto Ros Python](./guides/projeto_rospython.md)
+[ROS topics - como explorar](./guides/ros_topics.md)
+[Simulador Gazebo](./guides/simulador_ros.md)
+[Robô virtual com webcam](./guides/debugar_sem_robo_opencv_melodic)
+[Conexão ao robô físico](./guides/bringup_turtlebot.md)
+[Calibrar câmera](./guides/calibrar_camera.md)
+[Parar o robô via terminal](./guides/parar_robo.md)
 
-Vamos subir o nosso mundo simulado
-    
-    roslaunch my_simulation sala404_creepers.launch
-    
-Abra um novo terminal (Crtl+Alt+t) e execute o rosrun para renomear o topico da câmera
-    
-    rosrun topic_tools relay  /camera/rgb/image_raw/compressed /kamera
+## SSD de Robótica
 
-Abra um novo terminal (Crtl+Alt+t) e execute o rosrun para renomear o topico da câmera
-    
-    rosrun exemplos_python cor.py
-    
-Se tudo ocorreu bem, agora o nosso turtlebot esta realizado a segmentação de cor e detectando a caixa vermelho em nosso mundo simulado.
-    
-## Video do guia
-Fiquei com duvida no guia, acompanha o video.
+[Como fazer o boot do SSD físico na VM](./guides/Boot SSD via VirtualBox.md)
+[Restaurar o SSD físico - versão Mac](./guides/SSD_restaurar_mac.md)
+[Restaurar o SSD físico - versão Windows](./guides/SSD_restaurar_windows.md)
 
-https://www.youtube.com/watch?v=OKphJFyhnSg&feature=youtu.be
+## Máquina virtual
 
+[VM sem o SSD físico](./guides/VM_Virtualbox_Infra.pdf)
 
-Se der alguma coisa errada, consulte esses guia de sobrevivência ROS Gazebo
+## Git
 
-https://www.youtube.com/playlist?list=PLM8rZg4fCalht-rexa91MO1y3jxm9mwOa
+[Como instalar o GIT LFS](./guides/git_lfs.md)
+[Como instalar OpenCV 4.1 no Anaconda - Mac e Windows](./guides/opencv_anaconda.md)
+[Arquivo de swap - aumentar memória disponível no Linux](./guides/swap.md)
+
