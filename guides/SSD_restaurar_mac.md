@@ -2,9 +2,9 @@
 
 Este guia serve para você reinstalar o SSD Linux que foi emprestado pelo Insper se ele estiver corrompido. Esta é a versão Mac, existe uma versão Windows. 
 
-Os pré-requisitos para esta recuperação são ter 40 GB de espaço temporário em algum disco.
+Os pré-requisitos para esta recuperação são ter 54 GB de espaço temporário em algum disco.
 
-
+**Se você não tiver este espaço** pode fazer as etapas de 1 a 5 usando o espaço do próprio SSD e depois copiar o robot.7z para onde você tiver espaço (aí precisa ter 27GB livres)
 
 Aviso: **Você pode ter perda séria de dados ou de seu sistema operacional principal. Faça com muita atenção**
 
