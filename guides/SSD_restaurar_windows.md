@@ -142,7 +142,7 @@ Depois, para instalar o 'p7zip', faça:
 
     bash apt-cyg install p7zip
     
-No final da intalação vai aparecer a mensagen de instalação com sucesso:
+No final da instalação vai aparecer a mensagem de instalação com sucesso:
 
     Package p7zip installed
 
