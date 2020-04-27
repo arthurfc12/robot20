@@ -30,5 +30,5 @@ Atualizar `robot20`
 
 # Rodar exemplo 
 
-    rosrun projeto1_bas base_proj.py
+    rosrun projeto1_base base_proj.py
 
