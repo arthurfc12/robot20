@@ -19,18 +19,8 @@ import tf2_ros
 from geometry_msgs.msg import Twist, Vector3, Pose, Vector3Stamped
 from ar_track_alvar_msgs.msg import AlvarMarker, AlvarMarkers
 from nav_msgs.msg import Odometry
-from sensor_msgs.msg import Image
 from std_msgs.msg import Header
-from numpy import linalg
-from tf import transformations
-from tf import TransformerROS
-import tf2_ros
-import math
-from geometry_msgs.msg import Twist, Vector3, Pose, Vector3Stamped
-from ar_track_alvar_msgs.msg import AlvarMarker, AlvarMarkers
-from nav_msgs.msg import Odometry
-from sensor_msgs.msg import Image
-from std_msgs.msg import Header
+
 
 import visao_module
 
@@ -62,6 +52,7 @@ frame = "camera_link"
 tfl = 0
 
 tf_buffer = tf2_ros.Buffer()
+
 
 def recebe(msg):
 	global x # O global impede a recriacao de uma variavel local, para podermos usar o x global ja'  declarado
@@ -109,9 +100,7 @@ def roda_todo_frame(imagem):
     global cv_image
     global media
     global centro
-
     global resultados
-
 
     now = rospy.get_rostime()
     imgtime = imagem.header.stamp
@@ -123,10 +112,10 @@ def roda_todo_frame(imagem):
         return 
     try:
         antes = time.clock()
-        cv_image = bridge.compressed_imgmsg_to_cv2(imagem, "bgr8")
+        temp_image = bridge.compressed_imgmsg_to_cv2(imagem, "bgr8")
         # Note que os resultados já são guardados automaticamente na variável
         # chamada resultados
-        centro, imagem, resultados =  visao_module.processa(cv_image)        
+        centro, saida_net, resultados =  visao_module.processa(temp_image)        
         for r in resultados:
             # print(r) - print feito para documentar e entender
             # o resultado            
@@ -134,7 +123,7 @@ def roda_todo_frame(imagem):
 
         depois = time.clock()
         # Desnecessário - Hough e MobileNet já abrem janelas
-        #cv2.imshow("Camera", cv_image)
+        cv_image = saida_net.copy()
     except CvBridgeError as e:
         print('ex', e)
     
@@ -165,6 +154,11 @@ if __name__=="__main__":
             for r in resultados:
                 print(r)
             #velocidade_saida.publish(vel)
+
+            if cv_image is not None:
+                # Note que o imshow precisa ficar *ou* no codigo de tratamento de eventos *ou* no thread principal, não em ambos
+                cv2.imshow("cv_image no loop principal", cv_image)
+                cv2.waitKey(1)
             rospy.sleep(0.1)
 
     except rospy.ROSInterruptException:
