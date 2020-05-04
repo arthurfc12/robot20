@@ -4,7 +4,7 @@ Datas:
 
 Deadline 11/05 para primeira entrega. 
 
-Quem na entrega de 11/05 entregar um vídeo com o que já foi completado ganha prazo até 14/05. 
+Quem na entrega de 11/05 entregar um vídeo com o que já foi completado  e a URL do código ganha prazo até 14/05. 
 
 
         Maio 2020
@@ -26,6 +26,20 @@ C - Ficar na pista, encontrar creeper da cor certa, derrubar e voltar para a pis
 B - Pegar um creeper da cor certa, voltar para a pista e deixar na base certa. **Pode usar a inteface manual para controlar a garra** 
 
 A - Pegar creeper da cor e Id certos. Deixar na base certa. Estar bem modularizado 
+
+
+Cores válidas do creeper: `blue`, `green`, `pink`
+Estações válidas: `dog`, `cat`, `bicycle` e `bird`
+
+### Exemplo de objetivo: 
+
+O objetivo abaixo significa "Encontre o creeper azul que tem o ID número 23 e o traga até perto da caixa com o pássaro"
+
+~~~python
+
+    goal = ["blue", 23, "bird"]
+
+~~~
 
 
 # Como rodar 
@@ -50,10 +64,10 @@ Para executar o cenário, faça:
  
 Existe também uma versão com **pista mais estreita** em que pode ser mais fácil encontrar o ponto de fuga.
 
+    roslaunch my_simulation proj1_estreita.launch
 
-   roslaunch my_simulation proj1_estreita.launch
 
-
+A figura abaixo mostra a pista do projeto. 
 
 <img src="./pista_estreita_duas_cameras.png" width=85%></img>
 
