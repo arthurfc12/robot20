@@ -1,5 +1,20 @@
 # Projeto 1
 
+Datas:
+
+Deadline 11/05 para primeira entrega. 
+
+Quem na entrega de 11/05 entregar um vídeo com o que já foi completado ganha prazo até 14/05. 
+
+
+        Maio 2020
+    Su Mo Tu We Th Fr Sa
+                    1  2
+    3  4  5  6  7  8  9
+    10 11 12 13 14 15 16
+    17 18 19 20 21 22 23
+    24 25 26 27 28 29 30
+    31
 
 
 
@@ -84,7 +99,7 @@ Exemplo que controla passando tanto ângulos quanto posições-objetivo.
     rosrun my_simulation mgpi_position.py 
 
 
-    
+
 
 
 
