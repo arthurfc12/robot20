@@ -61,7 +61,7 @@ O comando abaixo é capaz de executar o comando:
 Tesmos disponivel 4 opções de mapas, com pequenas diferenças entre eles.
 
 ## Opção 1:
-Pista largar e sem base nos creppers.
+Pista larga e sem base nos creppers.
 
     roslaunch my_simulation proj1.launch
 
