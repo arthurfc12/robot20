@@ -139,12 +139,11 @@ def roda_todo_frame(imagem):
 
         depois = time.clock()
         # Desnecessário - Hough e MobileNet já abrem janelas
-        #cv2.imshow("Camera", cv_image)
     except CvBridgeError as e:
         print('ex', e)
     
 if __name__=="__main__":
-    rospy.init_node("cor")
+    rospy.init_node("base_proj")
 
     topico_imagem = "/camera/rgb/image_raw/compressed"
 
@@ -164,9 +163,12 @@ if __name__=="__main__":
 
     try:
         # Inicializando - por default gira no sentido anti-horário
-        # vel = Twist(Vector3(0,0,0), Vector3(0,0,math.pi/10.0))
+        
         
         while not rospy.is_shutdown():
+
+            
+
             if cv_image is not None:
 
                 mask_white = cv2.inRange(cv_image, white1, white2)
@@ -215,7 +217,7 @@ if __name__=="__main__":
                             lista_m.append(m)
 
                             #direita
-                            if m>0.3 and m<2:
+                            if m>0.1 and m<2.1:
                                 linhas_d_m.append(m)
                                 linhas_d_x1.append(x1)
                                 linhas_d_x2.append(x2)
@@ -259,30 +261,41 @@ if __name__=="__main__":
                 y4 = 0
                 
                 #linha direita
-                if len(linhas_d_m)>1:
+                if len(linhas_d_m)>=1:
                             x1 = int(np.mean(linhas_d_x1))
                             x2 = int(np.mean(linhas_d_x2))
                             y1 = int(np.mean(linhas_d_y1))
                             y2 = int(np.mean(linhas_d_y2))
-                            cv2.line(frame,(x1,y1), (x2,y2), (50,0,255),2) 
+                            cv2.line(cv_image,(x1,y1), (x2,y2), (50,0,255),2)
                 
                 #linha esquerda
-                if len(linhas_e_m)>1:
+                if len(linhas_e_m)>=1:
                             x3 = int(np.mean(linhas_e_x1))
                             x4 = int(np.mean(linhas_e_x2))
                             y3 = int(np.mean(linhas_e_y1))
                             y4 = int(np.mean(linhas_e_y2))
-                            cv2.line(frame,(x3,y3), (x4,y4), (50,0,255),2) 
+                            cv2.line(cv_image,(x3,y3), (x4,y4), (50,0,255),2) 
 
                 #ponto de intersecção
                 if x1!=0 and x2!=0 and x3!=0 and x4!=0:
                     px = int(((x1*y2 - y1*x2)*(x3-x4) - (x1-x2)*(x3*y4 - y3*x4))/((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4)))
                     py = int(((x1*y2 - y1*x2)*(y3-y4) - (y1-y2)*(x3*y4-x4*y3))/((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4)))
-                    cv2.circle(frame, (px, py), 1, (0,255,0), 5)
+                    cv2.circle(cv_image, (px, py), 1, (0,255,0), 5)
+
+                cv2.imshow("Camera", cv_image)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+
+                vel = Twist(Vector3(0.1,0,0), Vector3(0,0,0))
+                velocidade_saida.publish(vel)
+
+                #if encontra creeper:
+
+
 
                 for r in resultados:
                     print(r)
-            #velocidade_saida.publish(vel)
+                
             rospy.sleep(0.1)
 
     except rospy.ROSInterruptException:
