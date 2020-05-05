@@ -1,0 +1,6 @@
+rosrun projeto1_base base_proj.py
+roslaunch my_simulation proj1_estreita.launch
+rqt_image_view
+
+mudar velocidade angular p seguir ponto de fuga
+fazer ifs pra encontrar creeper, oh man
