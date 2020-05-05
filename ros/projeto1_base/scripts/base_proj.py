@@ -156,7 +156,7 @@ if __name__=="__main__":
 
     velocidade_saida = rospy.Publisher("/cmd_vel", Twist, queue_size = 1)
 
-
+    tfl = tf2_ros.TransformListener(tf_buffer) #conversao do sistema de coordenadas 
     tolerancia = 25
 
     # Exemplo de categoria de resultados
