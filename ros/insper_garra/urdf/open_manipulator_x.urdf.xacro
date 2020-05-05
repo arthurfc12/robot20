@@ -246,8 +246,8 @@
     <axis xyz="0 -1 0"/>
     <limit velocity="4.8" effort="1" lower="-0.010" upper="0.019" />
     <!--
-      Retirado por Miranda: Gazebo não suporta mimic joints
-      Descomentar quando for o robô real 
+      Retirado por Miranda: Gazebo nao suporta mimic joints
+      Descomentar quando for o robo real 
     <mimic joint="gripper" multiplier="1"/>
     -->
   </joint>
