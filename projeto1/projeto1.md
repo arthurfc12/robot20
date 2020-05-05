@@ -65,7 +65,7 @@ Pista larga e sem base nos creppers.
 
     roslaunch my_simulation proj1.launch
     
-![](https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1.png=250x250)
+<img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1.png" width=35%></img>
 
 
 ## Opção 2:
@@ -73,7 +73,7 @@ Pista estreita e sem base nos creppers.
 
     roslaunch my_simulation proj1_estreita.launch
 
-![](https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_estreita.png=250x250)
+<img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_estreita.png" width=35%></img>
 
 
 ## Opção 3:
@@ -81,8 +81,7 @@ Pista larga e com base nos creppers.
 
     roslaunch my_simulation proj1_base.launch
 
-
-![](https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_base.png=250x250)
+<img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_base.png" width=35%></img>
 
 
 ## Opção 4:
@@ -91,7 +90,7 @@ Pista estreita e com base nos creppers.
     roslaunch my_simulation proj1_base_estreita.launch
 
 
-![](https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_estreita.png=250x250)
+<img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_estreita.png" width=35%></img>
 
 
 A figura abaixo mostra a pista do projeto. 
