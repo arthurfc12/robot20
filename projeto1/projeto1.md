@@ -58,13 +58,27 @@ O comando abaixo é capaz de executar o comando:
 
 # Rodar cenário:
 
-Para executar o cenário, faça:
+Tesmos disponivel 4 opções de mapas, com pequenas diferenças entre eles.
+
+## Opção 1:
+Pista largar e sem base nos creppers.
 
     roslaunch my_simulation proj1.launch
- 
-Existe também uma versão com **pista mais estreita** em que pode ser mais fácil encontrar o ponto de fuga.
+
+## Opção 2:
+Pista estreita e sem base nos creppers.
 
     roslaunch my_simulation proj1_estreita.launch
+
+## Opção 3:
+Pista larga e com base nos creppers.
+
+    roslaunch my_simulation proj1_base.launch
+
+## Opção 4:
+Pista estreita e com base nos creppers.
+
+    roslaunch my_simulation proj1_base_estreita.launch
 
 
 A figura abaixo mostra a pista do projeto. 
