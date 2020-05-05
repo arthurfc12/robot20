@@ -101,6 +101,12 @@ Note que até o conceito B você pode oeprar a garra manualmente. Para fazer iss
 
 Existem algumas orientações sobre como controlar a garra neste link [https://github.com/arnaldojr/my_simulation/blob/master/garra/Open_manipulator_gui.md](https://github.com/arnaldojr/my_simulation/blob/master/garra/Open_manipulator_gui.md).
 
+Note que você **precisa** ter este projeto em seu `catkin_ws/src` senão a garra fica com um dos lados frouxos. O script `instala_garra.sh` faz o download dele, mas certifique-se. 
+
+    cd ~/catkin_ws/src
+    git clone https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins
+
+
 ## Controlando a garra por código
 
 Rodando o software para controlar a garra
