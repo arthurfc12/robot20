@@ -171,7 +171,7 @@ Depois de fazer a instalação, digite 7z --help no prompt do Cygwin para ver se
 
 ## 5. Baixe os arquivos
 
-Baixe os arquivos disponíveis em [LINK AQUI]. Só tem acesso quem faz parte da disciplina de Robótica no MS-Teams.
+Baixe os arquivos disponíveis em [neste link](https://alinsperedu.sharepoint.com/:f:/s/RobticaComputacional1.osem2020/ErQKW7yXobFAmFHg8BwAPxYBfaokIcEWyYUZWNz_qtZl3g?e=HeUaTR). Só tem acesso quem faz parte da disciplina de Robótica no MS-Teams.
 
 Salve-os em algum lugar. Você vai precisar ter 54GB livres para criar o SSD, mas depois de criado você não precisa mais deste espaço.
 
