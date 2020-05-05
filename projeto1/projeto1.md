@@ -64,21 +64,34 @@ Tesmos disponivel 4 opções de mapas, com pequenas diferenças entre eles.
 Pista larga e sem base nos creppers.
 
     roslaunch my_simulation proj1.launch
+    
+![](https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1.png=250x250)
+
 
 ## Opção 2:
 Pista estreita e sem base nos creppers.
 
     roslaunch my_simulation proj1_estreita.launch
 
+![](https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_estreita.png=250x250)
+
+
 ## Opção 3:
 Pista larga e com base nos creppers.
 
     roslaunch my_simulation proj1_base.launch
 
+
+![](https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_base.png=250x250)
+
+
 ## Opção 4:
 Pista estreita e com base nos creppers.
 
     roslaunch my_simulation proj1_base_estreita.launch
+
+
+![](https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_estreita.png=250x250)
 
 
 A figura abaixo mostra a pista do projeto. 
