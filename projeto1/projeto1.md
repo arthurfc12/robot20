@@ -90,7 +90,7 @@ Pista estreita e com base nos creppers.
     roslaunch my_simulation proj1_base_estreita.launch
 
 
-<img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_estreita.png" width=35%></img>
+<img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_base_estreita.png" width=35%></img>
 
 
 A figura abaixo mostra a pista do projeto. 
