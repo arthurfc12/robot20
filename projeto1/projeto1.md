@@ -41,6 +41,7 @@ O objetivo abaixo significa "Encontre o creeper azul que tem o ID número 23 e o
 
 ~~~
 
+A lista de todas as possibilidades que seu programa pode encontrar [está neste link](./todas_possibilidades.md). Lembre-se de que o código deve estar preparado para funcionar com *qualquer uma*. 
 
 # Como rodar 
 
