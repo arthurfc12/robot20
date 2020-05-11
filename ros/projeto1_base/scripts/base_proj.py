@@ -141,7 +141,43 @@ def roda_todo_frame(imagem):
         # Desnecessário - Hough e MobileNet já abrem janelas
     except CvBridgeError as e:
         print('ex', e)
+
+
+creeper_found = False
+faixa_fuga= 20
+centro_robo = (x,y)
+linear = 0.1
+angular = 0.1
+ponto_fuga = None
+
+#definir velocidades
+def andar_pista(centro_robo, ponto_fuga, faixa_fuga, linear, angular):
+    if ponto_fuga is not None:
+        #esquerda
+        if ponto_fuga[0] - faixa_fuga > centro_robo[0]:
+            vel = Twist(Vector3(0,0,0), Vector3(0,0,-angular))
+
+        #direita
+        if ponto_fuga[0] + faixa_fuga < centro_robo[0]:
+            vel = Twist(Vector3(0,0,0), Vector3(0,0,angular))
+
+        #frente
+        if abs(ponto_fuga[0] - centro_robo[0]) <= faixa_fuga:
+            vel = Twist(Vector3(linear,0,0), Vector3(0,0,0))
+
+        return vel
     
+    else:
+        vel = Twist(Vector3(0,0,0), Vector3(0,0,0))
+        return vel
+    
+
+    
+
+
+
+
+
 if __name__=="__main__":
     rospy.init_node("base_proj")
 
@@ -280,23 +316,34 @@ if __name__=="__main__":
                 if x1!=0 and x2!=0 and x3!=0 and x4!=0:
                     px = int(((x1*y2 - y1*x2)*(x3-x4) - (x1-x2)*(x3*y4 - y3*x4))/((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4)))
                     py = int(((x1*y2 - y1*x2)*(y3-y4) - (y1-y2)*(x3*y4-x4*y3))/((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4)))
-                    cv2.circle(cv_image, (px, py), 1, (0,255,0), 5)
+                    ponto_fuga = (px, py)
+                    cv2.circle(cv_image, ponto_fuga, 1, (0,255,0), 5)
+                   
+
+
+
+
+                vel = andar_pista(centro_robo, ponto_fuga, faixa_fuga, linear, angular)
+                # vel = Twist(Vector3(0.1,0,0), Vector3(0,0,0))
+                velocidade_saida.publish(vel)
+
 
                 cv2.imshow("Camera", cv_image)
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
 
-                vel = Twist(Vector3(0.1,0,0), Vector3(0,0,0))
-                velocidade_saida.publish(vel)
 
-                #if encontra creeper:
-
+                
 
 
                 for r in resultados:
                     print(r)
                 
             rospy.sleep(0.1)
+
+
+
+            
 
     except rospy.ROSInterruptException:
         print("Ocorreu uma exceção com o rospy")
