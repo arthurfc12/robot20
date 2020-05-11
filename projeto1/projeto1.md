@@ -54,7 +54,7 @@ Atualizar `robot20`
 
 O comando abaixo é capaz de executar o comando:
 
-    sudo sh $(rospack find my_simulation)/garra/instala_garra.sh
+    sh $(rospack find my_simulation)/garra/instala_garra.sh
     
 
 # Rodar cenário:
