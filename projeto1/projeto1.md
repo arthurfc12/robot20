@@ -41,6 +41,7 @@ O objetivo abaixo significa "Encontre o creeper azul que tem o ID número 23 e o
 
 ~~~
 
+A lista de todas as possibilidades que seu programa pode encontrar [está neste link](./todas_possibilidades.md). Lembre-se de que o código deve estar preparado para funcionar com *qualquer uma*. 
 
 # Como rodar 
 
@@ -64,21 +65,33 @@ Tesmos disponivel 4 opções de mapas, com pequenas diferenças entre eles.
 Pista larga e sem base nos creppers.
 
     roslaunch my_simulation proj1.launch
+    
+<img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1.png" width=35%></img>
+
 
 ## Opção 2:
 Pista estreita e sem base nos creppers.
 
     roslaunch my_simulation proj1_estreita.launch
 
+<img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_estreita.png" width=35%></img>
+
+
 ## Opção 3:
 Pista larga e com base nos creppers.
 
     roslaunch my_simulation proj1_base.launch
 
+<img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_base.png" width=35%></img>
+
+
 ## Opção 4:
 Pista estreita e com base nos creppers.
 
     roslaunch my_simulation proj1_base_estreita.launch
+
+
+<img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_base_estreita.png" width=35%></img>
 
 
 A figura abaixo mostra a pista do projeto. 
@@ -111,6 +124,9 @@ O software permite que você especifique o movimento da garra **tanto em ângulo
 
 <img src="./ferramenta_manipulador.png" width=85%></img>
 
+[Este vídeo  demonstra como agarrar o creeper e suspendê-lo](https://www.youtube.com/watch?v=Sq5ZDQDoR4w&feature=youtu.be) para que fique acima da câmera sem atrapalhar a visão.
+
+
 Note que até o conceito B você pode oeprar a garra manualmente. Para fazer isso programe seu robô para chegar perto o suficiente do creeper e pedir explicitamente que você o opere. Você vai precisar usar um `raw_input()` no código para **congelar** o terminal enquanto faz a pilotagem. Par
 
 Existem algumas orientações sobre como controlar a garra neste link [https://github.com/arnaldojr/my_simulation/blob/master/garra/Open_manipulator_gui.md](https://github.com/arnaldojr/my_simulation/blob/master/garra/Open_manipulator_gui.md).
@@ -125,13 +141,9 @@ Note que você **precisa** ter este projeto em seu `catkin_ws/src` senão a garr
 
 Rodando o software para controlar a garra
 
-Exemplo que controla passando ângulos-objetivo: 
+[Exemplo que controla](https://github.com/arnaldojr/my_simulation/blob/master/garra/scripts/garra_demo.py) passando tanto ângulos quanto posições-objetivo. 
 
-    rosrun my_simulation  open_manipulator.py
-
-Exemplo que controla passando tanto ângulos quanto posições-objetivo. 
-
-    rosrun my_simulation mgpi_position.py 
+    rosrun my_simulation garra_demo.py 
 
 
 
