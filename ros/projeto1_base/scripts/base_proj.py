@@ -33,9 +33,16 @@ from sensor_msgs.msg import Image
 from std_msgs.msg import Header
 
 import visao_module
+import at3
 
 
 bridge = CvBridge()
+
+
+#Os três creepers(gravar vídeo para cada um dos goals p cada rubrica)
+goal1 = ("blue", 11, "cat")
+goal2 = ("green",21,"dog")
+goal3 = ("pink",12,"bike")
 
 cv_image = None
 media = []
@@ -145,24 +152,25 @@ def roda_todo_frame(imagem):
 
 creeper_found = False
 faixa_fuga= 20
-centro_robo = (x,y)
+centro_robot = (x,y)
 linear = 0.1
 angular = 0.1
-ponto_fuga = None
+ponto_fuga = at3.ponto_de_fuga
 
-#definir velocidades
-def andar_pista(centro_robo, ponto_fuga, faixa_fuga, linear, angular):
+
+################### definir velocidades #############################
+def andar_pista(centro_robot, ponto_fuga, faixa_fuga, linear, angular):
     if ponto_fuga is not None:
         #esquerda
-        if ponto_fuga[0] - faixa_fuga > centro_robo[0]:
+        if ponto_fuga - faixa_fuga > centro_robot:
             vel = Twist(Vector3(0,0,0), Vector3(0,0,-angular))
 
         #direita
-        if ponto_fuga[0] + faixa_fuga < centro_robo[0]:
+        if ponto_fuga + faixa_fuga < centro_robot:
             vel = Twist(Vector3(0,0,0), Vector3(0,0,angular))
 
         #frente
-        if abs(ponto_fuga[0] - centro_robo[0]) <= faixa_fuga:
+        if abs(ponto_fuga - centro_robot) <= faixa_fuga:
             vel = Twist(Vector3(linear,0,0), Vector3(0,0,0))
 
         return vel
@@ -170,14 +178,29 @@ def andar_pista(centro_robo, ponto_fuga, faixa_fuga, linear, angular):
     else:
         vel = Twist(Vector3(0,0,0), Vector3(0,0,0))
         return vel
+
+def find_creeper(centro_creeper, centro_robot, faixa_creeper, v, w):
+        #esquerda não achado
+        if centro_creeper - faixa_creeper > centro_robot:
+            vel = Twist(Vector3(0,0,0), Vector3(0,0,-angular))
+
+        #direita não achado
+        if centro_creeper + faixa_creeper < centro_robot:
+            vel = Twist(Vector3(0,0,0), Vector3(0,0,angular))
+
+        #frente achado
+        if abs(centro_creeper - centro_robot) <= faixa_creeper:
+            vel = Twist(Vector3(linear,0,0), Vector3(0,0,0))
+
+        return vel
     
-
-    
-
-
-
+    else:
+        vel = Twist(Vector3(0,0,0), Vector3(0,0,0))
+        return vel
 
 
+
+################ LOOP PRINCIPAL ########################
 if __name__=="__main__":
     rospy.init_node("base_proj")
 
@@ -197,134 +220,21 @@ if __name__=="__main__":
     # Exemplo de categoria de resultados
     # [('chair', 86.965459585189819, (90, 141), (177, 265))]
 
-    try:
-        # Inicializando - por default gira no sentido anti-horário
-        
+    try:        
         
         while not rospy.is_shutdown():
-
-            
-
             if cv_image is not None:
+                try:
+                    ponto_fuga = at3.ponto_de_fuga(cv_image)
+                except:
+                    pass
 
-                mask_white = cv2.inRange(cv_image, white1, white2)
-
-                blur = cv2.GaussianBlur(mask_white, (5,5),0)
-
-                edges = cv2.Canny(blur,50,150)
-                
-                lines = cv2.HoughLines(edges,1,np.pi/180, 150)
-
-                lista_m = []
-                lista_h = []
-
-                linhas_d_m = []
-                linhas_d_x1 = []
-                linhas_d_x2 = []
-                linhas_d_y1 = []
-                linhas_d_y2 = []
-                linhas_d_h = []
-
-                linhas_e_m = []
-                linhas_e_x1 = []
-                linhas_e_x2 = []
-                linhas_e_y1 = []
-                linhas_e_y2 = []
-                linhas_e_h = []
-
-                xis = []
-                yis = []
-                if lines is not None and len(lines) > 0 :
-                    for x in range(0, len(lines)):    
-                        for rho, theta in lines[x]:
-                            a = np.cos(theta)
-                            b = np.sin(theta)
-                            x0 = a*rho
-                            y0 = b*rho
-                            x1 = int(x0 + 1000*(-b))
-                            y1 = int(y0 + 1000*(a))
-                            x2 = int(x0 - 1000*(-b))
-                            y2 = int(y0 - 1000*(a))
-                            m = (y2 - y1)/(x2 - x1)
-                            
-                            h = y1 - m*x1
-
-                            lista_h.append(h)
-                            lista_m.append(m)
-
-                            #direita
-                            if m>0.1 and m<2.1:
-                                linhas_d_m.append(m)
-                                linhas_d_x1.append(x1)
-                                linhas_d_x2.append(x2)
-                                linhas_d_y1.append(y1)
-                                linhas_d_y2.append(y2)
-                                linhas_d_h.append(h)
-
-
-                            #esquerda
-                            elif m<-0.2 and m>-2:
-                                linhas_e_m.append(m)
-                                linhas_e_x1.append(x1)
-                                linhas_e_x2.append(x2)
-                                linhas_e_y1.append(y1)
-                                linhas_e_y2.append(y2)
-                                linhas_e_h.append(h)
-                            
-                            else:
-                                lista_m.remove(m) 
-                                lista_h.remove(h)
-
-
-            
-        
-                if len(lista_m) > 1 and lista_m[0] != lista_m[1]:
-                    x_i = (lista_h[1] - lista_h[0])/(lista_m[0] - lista_m[1])
-                    y_i = lista_m[0] * x_i + lista_h[0]
-                    x_i = int(x_i)
-                    y_i = int(y_i)
-                    xis.append(x_i)
-                    yis.append(y_i)
-
-            
-                x1 = 0
-                x2 = 0
-                x3 = 0
-                x4 = 0
-                y1 = 0
-                y2 = 0
-                y3 = 0
-                y4 = 0
-                
-                #linha direita
-                if len(linhas_d_m)>=1:
-                            x1 = int(np.mean(linhas_d_x1))
-                            x2 = int(np.mean(linhas_d_x2))
-                            y1 = int(np.mean(linhas_d_y1))
-                            y2 = int(np.mean(linhas_d_y2))
-                            cv2.line(cv_image,(x1,y1), (x2,y2), (50,0,255),2)
-                
-                #linha esquerda
-                if len(linhas_e_m)>=1:
-                            x3 = int(np.mean(linhas_e_x1))
-                            x4 = int(np.mean(linhas_e_x2))
-                            y3 = int(np.mean(linhas_e_y1))
-                            y4 = int(np.mean(linhas_e_y2))
-                            cv2.line(cv_image,(x3,y3), (x4,y4), (50,0,255),2) 
-
-                #ponto de intersecção
-                if x1!=0 and x2!=0 and x3!=0 and x4!=0:
-                    px = int(((x1*y2 - y1*x2)*(x3-x4) - (x1-x2)*(x3*y4 - y3*x4))/((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4)))
-                    py = int(((x1*y2 - y1*x2)*(y3-y4) - (y1-y2)*(x3*y4-x4*y3))/((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4)))
-                    ponto_fuga = (px, py)
-                    cv2.circle(cv_image, ponto_fuga, 1, (0,255,0), 5)
-                   
+                if len(centro) and len(media) != 0:
+                    if area >= 1500 and creeper_found = False:
 
 
 
 
-                vel = andar_pista(centro_robo, ponto_fuga, faixa_fuga, linear, angular)
-                # vel = Twist(Vector3(0.1,0,0), Vector3(0,0,0))
                 velocidade_saida.publish(vel)
 
 
@@ -332,18 +242,10 @@ if __name__=="__main__":
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
 
-
-                
-
-
                 for r in resultados:
                     print(r)
                 
-            rospy.sleep(0.1)
-
-
-
-            
+            rospy.sleep(0.1)            
 
     except rospy.ROSInterruptException:
         print("Ocorreu uma exceção com o rospy")

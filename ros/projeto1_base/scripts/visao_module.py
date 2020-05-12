@@ -47,14 +47,44 @@ def identifica_cor(frame):
     # Precisamos dividir o inRange em duas partes para fazer a detecção
     # do vermelho:
     frame_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    
+    #   Descomente a cor que você quer achar
+    
+    ###### VERDE #######
+    
+    cor_menor = np.array([0,200,0])
+    cor_maior = np.array([9,255,1])
+    segmentado_cor = cv2.inRange(frame_hsv, cor_menor, cor_maior)
+    #rgb(1, 255, 9)
+    ####################
 
-    cor_menor = np.array([0, 50, 50])
+
+    ###### AZUL ########
+    '''
+    cor_menor = np.array([200,100, 0])
+    cor_maior = np.array([255, 148,17])
+    segmentado_cor = cv2.inRange(frame_hsv, cor_menor, cor_maior)
+    '''
+    #rgb(17, 148, 255)
+    ####################
+
+
+    ###### ROSA ########
+    '''
+    cor_menor = np.array([200, 0, 200])
+    cor_maior = np.array([255, 0, 255])
+    segmentado_cor = cv2.inRange(frame_hsv, cor_menor, cor_maior)
+    '''
+    #rgb(255, 0, 255)
+    ####################
+
+    '''cor_menor = np.array([0, 50, 50])
     cor_maior = np.array([8, 255, 255])
     segmentado_cor = cv2.inRange(frame_hsv, cor_menor, cor_maior)
 
     cor_menor = np.array([172, 50, 50])
     cor_maior = np.array([180, 255, 255])
-    segmentado_cor += cv2.inRange(frame_hsv, cor_menor, cor_maior)
+    segmentado_cor = cv2.inRange(frame_hsv, cor_menor, cor_maior)'''
 
     # Note que a notacão do numpy encara as imagens como matriz, portanto o enderecamento é
     # linha, coluna ou (y,x)
@@ -96,10 +126,11 @@ def identifica_cor(frame):
         cross(frame, centro, [255,0,0], 1, 17)
     else:
         media = (0, 0)
+        area = 0.0
 
     # Representa a area e o centro do maior contorno no frame
     font = cv2.FONT_HERSHEY_COMPLEX_SMALL
     cv2.putText(frame,"{:d} {:d}".format(*media),(20,100), 1, 4,(255,255,255),2,cv2.LINE_AA)
     cv2.putText(frame,"{:0.1f}".format(maior_contorno_area),(20,50), 1, 4,(255,255,255),2,cv2.LINE_AA)
 
-    return centro, result_frame, result_tuples
+    return centro, frame, area, media
