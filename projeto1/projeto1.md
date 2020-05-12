@@ -43,6 +43,26 @@ O objetivo abaixo significa "Encontre o creeper azul que tem o ID número 23 e o
 
 A lista de todas as possibilidades que seu programa pode encontrar [está neste link](./todas_possibilidades.md). Lembre-se de que o código deve estar preparado para funcionar com *qualquer uma*. 
 
+### Objetivos de testes - vídeos
+
+Você deve mostrar, para todas as rubricas, três vídeos do seu sistema  completando as seguintes atividades:
+
+```python
+goal1 = ("blue", 11, "cat")
+
+goal2 = ("green", 21, "dog")
+
+goal3 = ("pink", 12, "bike")
+```
+
+Lembre-se que todos os campos são importantes para o **A**.  
+
+A rubrica **B** leva em conta somente cor e estação. 
+
+A rubrica **C** leva em conta somente cor. 
+
+Note que não há problema se você editar somente o *goal* no código (sem fazer um menu ou um *input*). Você pode reiniciar tudo entre um objetivo e outro.
+
 # Como rodar 
 
 Atualizar `my_simulation` 
@@ -54,7 +74,7 @@ Atualizar `robot20`
 
 O comando abaixo é capaz de executar o comando:
 
-    sudo sh $(rospack find my_simulation)/garra/instala_garra.sh
+    sh $(rospack find my_simulation)/garra/instala_garra.sh
     
 
 # Rodar cenário:
