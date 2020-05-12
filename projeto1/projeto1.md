@@ -61,6 +61,7 @@ A rubrica **B** leva em conta somente cor e estação.
 
 A rubrica **C** leva em conta somente cor. 
 
+Note que não há problema se você editar somente o *goal* no código (sem fazer um menu ou um *input*). Você pode reiniciar tudo entre um objetivo e outro.
 
 # Como rodar 
 
