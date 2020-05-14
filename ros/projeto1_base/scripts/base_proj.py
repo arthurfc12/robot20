@@ -26,6 +26,7 @@ from tf import transformations
 from tf import TransformerROS
 import tf2_ros
 import math
+from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import Twist, Vector3, Pose, Vector3Stamped
 from ar_track_alvar_msgs.msg import AlvarMarker, AlvarMarkers
 from nav_msgs.msg import Odometry
@@ -149,16 +150,35 @@ def roda_todo_frame(imagem):
     except CvBridgeError as e:
         print('ex', e)
 
+def scaneou(dado):
+    global leitura_scan
+    leitura_scan = np.array(dado.ranges[0]).round(decimals=2)
+
 
 creeper_found = False
 faixa_fuga= 20
+faixa_creeper = 20
 centro_robot = (x,y)
 linear = 0.1
 angular = 0.1
 ponto_fuga = at3.ponto_de_fuga
+dist_creeper = 0.22
 
 
 ################### definir velocidades #############################
+
+def stop():
+    vel = Twist(Vector3(0,0,0), Vector3(0,0,0))
+    return vel
+
+def re(linear):
+    vel = Twist(Vector3(-linear,0,0), Vector3(0,0,0))
+    return vel
+
+def find_pista(angular):
+    vel = Twist(Vector3(0,0,0), Vector3(0,0,-angular))
+    return vel
+
 def andar_pista(centro_robot, ponto_fuga, faixa_fuga, linear, angular):
     if ponto_fuga is not None:
         #esquerda
@@ -179,7 +199,7 @@ def andar_pista(centro_robot, ponto_fuga, faixa_fuga, linear, angular):
         vel = Twist(Vector3(0,0,0), Vector3(0,0,0))
         return vel
 
-def find_creeper(centro_creeper, centro_robot, faixa_creeper, v, w):
+def find_creeper(centro_creeper, centro_robot, faixa_creeper, linear, angular):
         #esquerda não achado
         if centro_creeper - faixa_creeper > centro_robot:
             vel = Twist(Vector3(0,0,0), Vector3(0,0,-angular))
@@ -200,6 +220,10 @@ def find_creeper(centro_creeper, centro_robot, faixa_creeper, v, w):
 
 
 
+
+
+
+
 ################ LOOP PRINCIPAL ########################
 if __name__=="__main__":
     rospy.init_node("base_proj")
@@ -213,6 +237,7 @@ if __name__=="__main__":
     print("Usando ", topico_imagem)
 
     velocidade_saida = rospy.Publisher("/cmd_vel", Twist, queue_size = 1)
+    recebe_scan = rospy.Subscriber("/scan", LaserScan, scaneou)
 
     tfl = tf2_ros.TransformListener(tf_buffer) #conversao do sistema de coordenadas 
     tolerancia = 25
@@ -231,7 +256,13 @@ if __name__=="__main__":
 
                 if len(centro) and len(media) != 0:
                     if area >= 1500 and creeper_found = False:
+                        vel = find_creeper(centro[0], media[0], faixa_creeper, linear, angular)
+                    else:
+                        vel = andar_pista(centro[0],ponto_fuga[0], faixa_fuga, linear, angular)
 
+                if leitura_scan <= dist_creeper:
+                    vel = stop()
+                    creeper_found = True
 
 
 
