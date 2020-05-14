@@ -109,7 +109,7 @@ def recebe(msg):
 
         referenciais = frame_names.keys()
         for ref in referenciais: 
-            transf = faz_transformacao(marcador, ref)
+            transf = faz_transformacao(ref, marcador)
             if transf is not None:           
                 xt, yt, zt, alpha_t = decompoe(transf)
                 insere_coords_dict(frame_coords[ref], xt, yt, zt, alpha_t)
@@ -153,8 +153,6 @@ if __name__=="__main__":
     print("""
 
 Para funcionar este programa *precisa* do Rviz rodando antes:
-
-
 
 roslaunch turtlebot3_manipulation_moveit_config move_group.launch
 
