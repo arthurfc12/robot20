@@ -55,6 +55,8 @@ white1 = np.array([200, 200, 200], dtype=np.uint8)
 white_2_hsv = np.array([0, 0, 100], dtype=np.uint8)
 white2 = np.array([255, 255, 255], dtype=np.uint8)
 
+image_cor = None
+
 
 area = 0.0 # Variavel com a area do maior contorno
 
@@ -122,8 +124,9 @@ def roda_todo_frame(imagem):
     global cv_image
     global media
     global centro
-
+    global image_cor
     global resultados
+    global area
 
 
     now = rospy.get_rostime()
@@ -136,16 +139,20 @@ def roda_todo_frame(imagem):
         return 
     try:
         antes = time.clock()
-        cv_image = bridge.compressed_imgmsg_to_cv2(imagem, "bgr8")
+        cv_image2 = bridge.compressed_imgmsg_to_cv2(imagem, "bgr8")
         # Note que os resultados já são guardados automaticamente na variável
         # chamada resultados
-        centro, imagem, resultados =  visao_module.processa(cv_image)        
+        centro, imagem, resultados =  visao_module.processa(cv_image2)        
         for r in resultados:
             # print(r) - print feito para documentar e entender
             # o resultado            
             pass
 
+        media, centro, image_cor, area = visao_module.identifica_cor(cv_image2) 
+
+
         depois = time.clock()
+        cv_image = imagem.copy()
         # Desnecessário - Hough e MobileNet já abrem janelas
     except CvBridgeError as e:
         print('ex', e)
@@ -186,7 +193,7 @@ def andar_pista(centro_robot, ponto_fuga, faixa_fuga, linear, angular):
             vel = Twist(Vector3(0,0,0), Vector3(0,0,-angular))
 
         #direita
-        if ponto_fuga + faixa_fuga < centro_robot:
+        elif ponto_fuga + faixa_fuga < centro_robot:
             vel = Twist(Vector3(0,0,0), Vector3(0,0,angular))
 
         #frente
@@ -195,31 +202,22 @@ def andar_pista(centro_robot, ponto_fuga, faixa_fuga, linear, angular):
 
         return vel
     
-    else:
-        vel = Twist(Vector3(0,0,0), Vector3(0,0,0))
-        return vel
-
 def find_creeper(centro_creeper, centro_robot, faixa_creeper, linear, angular):
         #esquerda não achado
         if centro_creeper - faixa_creeper > centro_robot:
             vel = Twist(Vector3(0,0,0), Vector3(0,0,-angular))
 
         #direita não achado
-        if centro_creeper + faixa_creeper < centro_robot:
+        elif centro_creeper + faixa_creeper < centro_robot:
             vel = Twist(Vector3(0,0,0), Vector3(0,0,angular))
 
         #frente achado
         if abs(centro_creeper - centro_robot) <= faixa_creeper:
             vel = Twist(Vector3(linear,0,0), Vector3(0,0,0))
-
+        
         return vel
     
-    else:
-        vel = Twist(Vector3(0,0,0), Vector3(0,0,0))
-        return vel
-
-
-
+     
 
 
 
@@ -255,16 +253,23 @@ if __name__=="__main__":
                     pass
 
                 if len(centro) and len(media) != 0:
-                    if area >= 1500 and creeper_found = False:
+                    if creeper_found == False and area >= 1000:
                         vel = find_creeper(centro[0], media[0], faixa_creeper, linear, angular)
                     else:
                         vel = andar_pista(centro[0],ponto_fuga[0], faixa_fuga, linear, angular)
 
-                if leitura_scan <= dist_creeper:
+                    if leitura_scan <= dist_creeper:
+                        creeper_found = True
+                        vel = stop()
+                    if creeper_found == True and leitura_scan > 0.7:
+                        vel = find_pista(angular)
+                    if creeper_found == True and leitura_scan <= 0.7:
+                        vel = re(linear)
+                    if ponto_fuga[0] != 0 and creeper_found == True:
+                        vel = andar_pista(centro[0], ponto_fuga[0], faixa_fuga, linear, angular)
+                else:
                     vel = stop()
-                    creeper_found = True
-
-
+                    
 
                 velocidade_saida.publish(vel)
 
