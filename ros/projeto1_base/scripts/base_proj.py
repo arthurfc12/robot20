@@ -41,8 +41,8 @@ y = 0
 z = 0 
 id = 0
 
-linear = 0.1
-angular = 0.3
+linear = 0.15
+angular = 0.15
 
 frame = "camera_link"
 # frame = "head_camera"  # DESCOMENTE para usar com webcam USB via roslaunch tag_tracking usbcam
@@ -145,7 +145,10 @@ def recebe(msg):
 creeper_found = False
 faixa_fuga= 20
 faixa_creeper = 20
-dist_creeper = 0.22
+dist_creeper = 0.40
+creeper_caught = False
+dist_base = 0.22
+
 
 
 ################### definir velocidades #############################
@@ -181,22 +184,15 @@ def find_creeper(centro_creeper, centro_robot, faixa_creeper, linear, angular):
         #esquerda não achado
         if centro_creeper - faixa_creeper > centro_robot:
             vel = Twist(Vector3(0,0,0), Vector3(0,0,-angular))
-            print("oi")
-
         #direita não achado
         elif centro_creeper + faixa_creeper < centro_robot:
             vel = Twist(Vector3(0,0,0), Vector3(0,0,angular))
-            print("oi")
         #frente achado
         if abs(centro_creeper - centro_robot) <= faixa_creeper:
             vel = Twist(Vector3(linear,0,0), Vector3(0,0,0))
-            print("oi")
         return vel
     
      
-
-
-
 
 ################ LOOP PRINCIPAL ########################
 if __name__=="__main__":
@@ -218,7 +214,6 @@ if __name__=="__main__":
     # [('chair', 86.965459585189819, (90, 141), (177, 265))]
     vel = Twist(Vector3(0,0,0), Vector3(0,0,0)) #Começa parado
     try:        
-        
         while not rospy.is_shutdown():
             if cv_image is not None:
                 try:
@@ -227,7 +222,6 @@ if __name__=="__main__":
                     pass
 
                 if len(centro) and len(media) != 0:
-                    print('Leitura_scan')
                     if creeper_found == False and area >= 1000:
                         vel = find_creeper(centro[0], media[0], faixa_creeper, linear, angular)
                     else:
@@ -236,15 +230,20 @@ if __name__=="__main__":
                     if leitura_scan <= dist_creeper:
                         vel = stop()
                         creeper_found = True
-                    if creeper_found == True and leitura_scan > 0.7:
+                        #ACESSAR GARRA
+                    if creeper_caught == True:
                         vel = find_pista(angular)
-                    if creeper_found == True and leitura_scan <= 0.7:
-                        vel = re(linear)
-                    if ponto_fuga[0] != 0 and creeper_found == True:
-                        vel = andar_pista(centro[0], ponto_fuga[0], faixa_fuga, linear, angular)
-                else:
-                    vel = stop()
-                    
+                        if area <= 1000:
+                            vel = andar_pista(centro[0],ponto_fuga[0], faixa_fuga, linear, angular)
+                            if base_found == False:
+                                vel = find_base(centro[0], media[0], faixa_creeper, linear, angular)
+                            else:
+                                vel = andar_pista(centro[0],ponto_fuga[0], faixa_fuga, linear, angular)
+                            
+                            if leitura_scan <= dist_base:
+                                vel = stop()
+                                base_found = True
+                                #ACESSAR GARRA
 
                 velocidade_saida.publish(vel)
 

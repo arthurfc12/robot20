@@ -1,5 +1,7 @@
 roslaunch my_simulation proj1_estreita.launch
 rqt_image_view
 rosrun projeto1_base base_proj.py
+roslaunch turtlebot3_manipulation_moveit_config move_group.launch 
+roslaunch turtlebot3_manipulation_gui turtlebot3_manipulation_gui.launch
 
 https://github.com/GuilhermeLunetta/Atividade4-Robotica/blob/master/projeto_ros_at4/scripts/cor.py
