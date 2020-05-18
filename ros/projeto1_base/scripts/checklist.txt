@@ -1,5 +1,5 @@
 roslaunch my_simulation proj1_estreita.launch
-rosrun projeto1_base base_proj.py
 rqt_image_view
+rosrun projeto1_base base_proj.py
 
 https://github.com/GuilhermeLunetta/Atividade4-Robotica/blob/master/projeto_ros_at4/scripts/cor.py

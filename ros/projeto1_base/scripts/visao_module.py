@@ -52,8 +52,8 @@ def identifica_cor(frame):
     
     ###### VERDE #######
     
-    cor_menor = np.array([0,200,0])
-    cor_maior = np.array([9,255,1])
+    cor_menor = np.array([47, 90, 90])
+    cor_maior = np.array([77, 255, 255])
     segmentado_cor = cv2.inRange(frame_hsv, cor_menor, cor_maior)
     #rgb(1, 255, 9)
     ####################
@@ -61,8 +61,8 @@ def identifica_cor(frame):
 
     ###### AZUL ########
     '''
-    cor_menor = np.array([200,100, 0])
-    cor_maior = np.array([255, 148,17])
+    cor_menor = np.array([89, 90, 90])
+    cor_maior = np.array([119, 255, 255])
     segmentado_cor = cv2.inRange(frame_hsv, cor_menor, cor_maior)
     '''
     #rgb(17, 148, 255)
@@ -71,8 +71,8 @@ def identifica_cor(frame):
 
     ###### ROSA ########
     '''
-    cor_menor = np.array([200, 0, 200])
-    cor_maior = np.array([255, 0, 255])
+    cor_menor = np.array([135, 90, 90])
+    cor_maior = np.array([165, 255, 255])
     segmentado_cor = cv2.inRange(frame_hsv, cor_menor, cor_maior)
     '''
     #rgb(255, 0, 255)
