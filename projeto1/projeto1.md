@@ -84,7 +84,7 @@ Tesmos disponivel 4 opções de mapas, com pequenas diferenças entre eles.
 ## Opção 1:
 Pista larga e sem base nos creppers.
 
-    roslaunch my_simulation proj1.launch
+    roslaunch my_simulation proj1_mult.launch
     
 <img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1.png" width=35%></img>
 
@@ -92,10 +92,11 @@ Pista larga e sem base nos creppers.
 ## Opção 2:
 Pista estreita e sem base nos creppers.
 
-    roslaunch my_simulation proj1_estreita.launch
+    roslaunch my_simulation proj1_mult_estreita.launch
 
 <img src="https://github.com/arnaldojr/my_simulation/blob/master/garra/img/proj1_estreita.png" width=35%></img>
 
+**Obs.:** Os launches `proj1_mult` e `proj1_mult_estreita` foram alterados para usar multi-marker, que aumentam a precisão.  
 
 ## Opção 3:
 Pista larga e com base nos creppers.
