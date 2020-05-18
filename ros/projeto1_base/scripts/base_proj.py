@@ -231,6 +231,7 @@ if __name__=="__main__":
                         vel = stop()
                         creeper_found = True
                         #ACESSAR GARRA
+                        leitura = raw_input()
                     if creeper_caught == True:
                         vel = find_pista(angular)
                         if area <= 1000:
@@ -244,6 +245,7 @@ if __name__=="__main__":
                                 vel = stop()
                                 base_found = True
                                 #ACESSAR GARRA
+                                leitura = raw_input()
 
                 velocidade_saida.publish(vel)
 
