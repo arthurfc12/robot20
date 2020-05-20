@@ -49,6 +49,10 @@ tf_buffer = tf2_ros.Buffer()
 def faz_transformacao(ref1, ref2):
     """Realiza a transformacao do ponto entre o referencial 1 e o referencial 2 
         retorna a trasnformacao
+
+        Para saber todos os referenciais disponíveis veja o frames.pdf gerado por: 
+
+        rosrun tf view_frames 
     """
     print(tf_buffer.can_transform(ref1, ref2, rospy.Time(0)))
     transf = tf_buffer.lookup_transform(ref1, ref2, rospy.Time(0))
