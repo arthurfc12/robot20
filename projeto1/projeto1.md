@@ -52,7 +52,7 @@ goal1 = ("blue", 11, "cat")
 
 goal2 = ("green", 21, "dog")
 
-goal3 = ("pink", 12, "bike")
+goal3 = ("pink", 12, "bicycle")
 ```
 
 Lembre-se que todos os campos são importantes para o **A**.  
