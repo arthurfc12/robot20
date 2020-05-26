@@ -5,3 +5,7 @@ roslaunch turtlebot3_manipulation_moveit_config move_group.launch
 roslaunch turtlebot3_manipulation_gui turtlebot3_manipulation_gui.launch
 
 https://github.com/GuilhermeLunetta/Atividade4-Robotica/blob/master/projeto_ros_at4/scripts/cor.py
+https://github.com/arnaldojr/my_simulation/blob/master/garra/Open_manipulator_gui.md
+https://github.com/arnaldojr/my_simulation/blob/master/garra/scripts/garra_demo.py
+https://www.youtube.com/watch?v=Sq5ZDQDoR4w&feature=youtu.be
+https://github.com/Insper/robot20/blob/master/projeto1/projeto1.md

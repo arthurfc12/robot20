@@ -223,12 +223,16 @@ if __name__=="__main__":
             if cv_image is not None:
                 try:
                     ponto_fuga = at3.ponto_de_fuga(cv_image)
+                    print('ponto fuga')
+                    print(ponto_fuga)
+
                 except:
                     pass
 
                 if len(centro) and len(media) != 0:
-                    print('Leitura_scan')
-                    if creeper_found == False and area >= 1000:
+                    print('leitura scan')
+                    print(leitura_scan)
+                    if area >= 1000 and creeper_found == False:
                         vel = find_creeper(centro[0], media[0], faixa_creeper, linear, angular)
                     else:
                         vel = andar_pista(centro[0],ponto_fuga[0], faixa_fuga, linear, angular)
