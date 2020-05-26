@@ -52,7 +52,7 @@ goal1 = ("blue", 11, "cat")
 
 goal2 = ("green", 21, "dog")
 
-goal3 = ("pink", 12, "bike")
+goal3 = ("pink", 12, "bicycle")
 ```
 
 Lembre-se que todos os campos são importantes para o **A**.  
@@ -82,7 +82,7 @@ O comando abaixo é capaz de executar o comando:
 Tesmos disponivel 4 opções de mapas, com pequenas diferenças entre eles.
 
 ## Opção 1:
-Pista larga e sem base nos creppers.
+Pista larga e sem base nos creppers. Esta pista *consegue* deduzir a posição do tag da cabeça do creeper usando o tag auxiliar que fica na base. 
 
     roslaunch my_simulation proj1_mult.launch
     
@@ -90,7 +90,7 @@ Pista larga e sem base nos creppers.
 
 
 ## Opção 2:
-Pista estreita e sem base nos creppers.
+Pista estreita e sem base nos creppers. Pista larga e sem base nos creppers. Esta pista *consegue* deduzir a posição do tag da cabeça do creeper usando o tag auxiliar que fica na base. 
 
     roslaunch my_simulation proj1_mult_estreita.launch
 
@@ -99,7 +99,7 @@ Pista estreita e sem base nos creppers.
 **Obs.:** Os launches `proj1_mult` e `proj1_mult_estreita` foram alterados para usar multi-marker, que aumentam a precisão.  
 
 ## Opção 3:
-Pista larga e com base nos creppers.
+Pista larga e com base nos creppers. Esta pista <font color=red>só consegue informar o tag quando a cabeça do *creeper* estiver visível</font>. 
 
     roslaunch my_simulation proj1_base.launch
 
@@ -107,7 +107,7 @@ Pista larga e com base nos creppers.
 
 
 ## Opção 4:
-Pista estreita e com base nos creppers.
+Pista estreita e com base nos creppers. Esta pista só <font color=red>consegue informar o tag quando a cabeça do *creeper* estiver visível</font>. 
 
     roslaunch my_simulation proj1_base_estreita.launch
 
@@ -128,6 +128,16 @@ Existe um código exemplo que junta
     rosrun projeto1_base base_proj.py
 
 Este exemplo pode ou não ser usado, conforme seu grupo achar melhor. 
+
+# Rviz - visualizador dos sensores
+
+Existe uma configuração do Rviz já adequada a visualizar os sensores (câmera, laser, tag) pertinentes deste projeto. Para usá-la faça:
+
+    roslaunch my_simulation rviz.launch
+
+O Rviz deve se abrir numa visão semelhante ao que temos abaixo.  O uso do Rviz é essencial [só se você estiver convertendo entre sistemas de coordenadas em seu programa Python](./transformacoes.md).
+
+<img src=./rviz_texto.png></img>
 
 
 # Usando a garra
@@ -165,6 +175,11 @@ Rodando o software para controlar a garra
 [Exemplo que controla](https://github.com/arnaldojr/my_simulation/blob/master/garra/scripts/garra_demo.py) passando tanto ângulos quanto posições-objetivo. 
 
     rosrun my_simulation garra_demo.py 
+
+## Transformações 
+
+Veja o [adendo sobre transformações](./transformacoes.md) e os tags Alvar se estiver já buscando o conceito A. 
+
 
 
 

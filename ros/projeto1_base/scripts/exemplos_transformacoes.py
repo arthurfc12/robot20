@@ -33,21 +33,13 @@ centro = []
 
 ids_possiveis_tags = [11,12,13,21,22,23] # Baseado no enunciado do projeto
 
-area = 0.0 # Variavel com a area do maior contorno
+area = 0.0 # Variavel com a area do maior contorno colorido
 
-# Só usar se os relógios ROS da Raspberry e do Linux desktop estiverem sincronizados. 
-# Descarta imagens que chegam atrasadas demais
-check_delay = False 
-
-resultados = [] # Criacao de uma variavel global para guardar os resultados vistos
+resultados = [] # Criacao de uma variavel global para guardar os resultados vistos pela MobileNet
 
 x = 0
 y = 0
 z = 0 
-id = 0
-
-frame = "camera_link"
-# frame = "head_camera"  # DESCOMENTE para usar com webcam USB via roslaunch tag_tracking usbcam
 
 tfl = 0
 
@@ -57,6 +49,10 @@ tf_buffer = tf2_ros.Buffer()
 def faz_transformacao(ref1, ref2):
     """Realiza a transformacao do ponto entre o referencial 1 e o referencial 2 
         retorna a trasnformacao
+
+        Para saber todos os referenciais disponíveis veja o frames.pdf gerado por: 
+
+        rosrun tf view_frames 
     """
     print(tf_buffer.can_transform(ref1, ref2, rospy.Time(0)))
     transf = tf_buffer.lookup_transform(ref1, ref2, rospy.Time(0))
@@ -85,6 +81,7 @@ def decompoe(transf):
     return x,y,z, angulo_marcador_robo
 
 def insere_coords_dict(dici, x,y,z,alpha):
+    " Insere coordenadas (vindas de um trasnformation) num dicionário para facilitar uso posterior"
     dici["x"] = x 
     dici["y"] = y 
     dici["z"] = z 
@@ -93,11 +90,11 @@ def insere_coords_dict(dici, x,y,z,alpha):
 
  
 def recebe(msg):
+    "Recebe o evento das tags alvar"
     global x # O global impede a recriacao de uma variavel local, para podermos usar o x global ja'  declarado
     global y
     global z
     global id
-
 
     frame_names = {"camera_rgb_optical_frame":"Coordenadas da câmera", "end_effector_link": "Cubo vermelho da mão", "base_link": "Base do robô"}
     frame_coords = {"camera_rgb_optical_frame":dict(), "end_effector_link": dict(), "base_link":dict()}
@@ -118,11 +115,11 @@ def recebe(msg):
             print("\r")
             if ref in frame_coords.keys():
                 print("Marcador ", id)
-                print("No referencial Referencial :",ref, " que é ", end=None)
+                print("No referencial :",ref, " que é ", end=None)
                 print(frame_names[ref])
                 for k in frame_coords[ref].keys():
-                    print("%s %5.3f"%(k, frame_coords[ref][k]))
-
+                    print("%s %5.3f"%(k, frame_coords[ref][k]), end=" ")
+                print()
 
 # A função a seguir é chamada sempre que chega um novo frame
 def roda_todo_frame(imagem):
@@ -152,6 +149,14 @@ if __name__=="__main__":
 
     print("""
 
+ALERTA:
+
+
+
+
+
+
+
 Para funcionar este programa *precisa* do Rviz rodando antes:
 
 roslaunch turtlebot3_manipulation_moveit_config move_group.launch
@@ -178,7 +183,7 @@ roslaunch my_simulation rviz.launch
     tfl = tf2_ros.TransformListener(tf_buffer) #conversao do sistema de coordenadas 
     tolerancia = 25
 
-    # Exemplo de categoria de resultados
+    # Exemplo de categoria de resultados MobileNEt
     # [('chair', 86.965459585189819, (90, 141), (177, 265))]
 
     try:
